@@ -101,6 +101,10 @@ p {
   opacity: 0.7;
 }
 
+h2 {
+  color: #f66c91;
+}
+
 @media (max-width: 800px) {
   #parent {
     flex-direction: column;
