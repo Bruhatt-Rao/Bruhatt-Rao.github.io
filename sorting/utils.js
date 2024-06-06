@@ -11,16 +11,18 @@ class interval {
             expected = Date.now() + this.interval;
             timeout = setTimeout(step, this.interval);
             stopped = false;
+            document.getElementById("status").innerText = "Status: Sorting";
         };
 
         this.stop = function() {
+            document.getElementById("status").innerText = "Status: Sorted";
             if (!stopped) {
                 console.log("timeout");
                 clearTimeout(timeout);
             } else {
                 console.log("no timeout");
             }
-          stopped = true;
+            stopped = true;
         };
 
         function step() {
