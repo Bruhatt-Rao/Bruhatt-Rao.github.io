@@ -62,8 +62,8 @@ function draw(arr) {
     ctx.lineWidth = -0.4;
     ctx.strokeStyle="#222e46";
     for (i = 0; i < arr.length; i++) {
-        ctx.fillRect(49 + i * size, 20, size, unsorted[i] * size);
-        ctx.strokeRect(49 + i * size, 20, size, unsorted[i] * size);
+        ctx.fillRect(49 + i * size, 400-unsorted[i] * size, size, unsorted[i] * size);
+        ctx.strokeRect(49 + i * size, 400-unsorted[i] * size, size, unsorted[i] * size);
     }
 }
 
