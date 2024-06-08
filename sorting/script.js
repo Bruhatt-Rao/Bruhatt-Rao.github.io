@@ -1,4 +1,4 @@
-var area, unsorted = [], temp, count, inter, sizeslider, size = 4, i2=0;
+var area, unsorted = [], temp, count, inter, sizeslider, size = 4, i2 = 0;
 
 sort = bubble_sort;
 
@@ -8,9 +8,9 @@ for (var i = 1; i <= highend; i++) {
 }
 
 function step() {
-    return ( 
+    return (
         (
-            ( 500 * (size / 10000) ) + 0.05
+            (500 * (size / 10000)) + 0.05
         ) * 700
     )
 }
@@ -24,9 +24,9 @@ function reset() {
         unsorted.push(i);
     }
     shuffle(unsorted);
-    console.log(500/(size/1000));
+    console.log(500 / (size / 1000));
     inter.stop();
-    inter = new interval(function(){
+    inter = new interval(function() {
         sort(unsorted);
     }, step())
     inter.run()
@@ -39,8 +39,9 @@ function startGame() {
     sizeslider = document.getElementById("Size");
     size = sizeslider.value;
     sizeslider.oninput = reset;
-    inter = new interval(function(){          sort(unsorted);
-    },step())
+    inter = new interval(function() {
+        sort(unsorted);
+    }, step())
     inter.run()
     //sort(unsorted);
 }
@@ -58,12 +59,14 @@ var area = {
 function draw(arr) {
     ctx = area.context;
     ctx.clearRect(0, 0, 400, 400);
-    ctx.fillStyle = "#f66c91";
+    ctx.fillStyle = "#f66c91";    
+    //ctx.fillStyle = "#121212";
     ctx.lineWidth = -0.4;
     ctx.strokeStyle="#222e46";
+    //ctx.strokeStyle = "#121212";
     for (i = 0; i < arr.length; i++) {
-        ctx.fillRect(49 + i * size, 400-unsorted[i] * size, size, unsorted[i] * size);
-        ctx.strokeRect(49 + i * size, 400-unsorted[i] * size, size, unsorted[i] * size);
+        ctx.fillRect(49 + i * size, 400 - unsorted[i] * size, size, unsorted[i] * size);
+        ctx.strokeRect(49 + i * size, 400 - unsorted[i] * size, size, unsorted[i] * size);
     }
 }
 
@@ -104,7 +107,28 @@ function insertion_sort(arr) {
     draw(arr);
 }
 
-funcs = [bubble_sort, insertion_sort];
+function selectionSort(arr) {
+    scanIndex = i2;
+    count = 0;
+    let lowest = i2;
+    for (let j = arr.length; j > i2; j--) {
+        if (arr[lowest] < arr[j]) {
+            lowest = j;
+        }
+    }
+    if (i2 !== lowest) {
+        // swap the elements
+        [arr[i2],arr[lowest]] = [arr[lowest], arr[i2]];
+    }
+    i2++;
+    if (i2 >= arr.length) {
+        console.log("ended");
+        inter.stop();
+    }
+    draw(arr);
+}
+
+funcs = [bubble_sort, insertion_sort, selectionSort];
 
 function switch_sort(i) {
     sort = funcs[i];
