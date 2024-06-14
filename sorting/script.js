@@ -1,31 +1,38 @@
-var area, unsorted = [], temp, count, inter, sizeslider, size = 4, i2 = 0;
+var area, unsorted = [], temp, count = 0, inter, sizeslider, size = 4, i2 = 0;
 
 sort = bubble_sort;
 
 var highend = 300 / size;
+
+function bar(n, color) {
+    this.n = n;
+    this.color = color;
+}
+
 for (var i = 1; i <= highend; i++) {
-    unsorted.push(i);
+    unsorted.push(new bar(i, "#f66c91"));
 }
 
 function step() {
     return (
         (
             (500 * (size / 10000)) + 0.05
-        ) * 700
+        ) * 100
     )
 }
 
 function reset() {
     size = sizeslider.value;
-    i2 = 0;
     highend = 300 / size;
     unsorted = [];
     for (var i = 1; i <= highend; i++) {
-        unsorted.push(i);
+        unsorted.push(new bar(i, "#f66c91"));
     }
     shuffle(unsorted);
     console.log(500 / (size / 1000));
     inter.stop();
+    count = 0;
+    i2 = 0;
     inter = new interval(function() {
         sort(unsorted);
     }, step())
@@ -65,12 +72,13 @@ function draw(arr) {
     ctx.strokeStyle="#222e46";
     //ctx.strokeStyle = "#121212";
     for (i = 0; i < arr.length; i++) {
-        ctx.fillRect(49 + i * size, 400 - unsorted[i] * size, size, unsorted[i] * size);
-        ctx.strokeRect(49 + i * size, 400 - unsorted[i] * size, size, unsorted[i] * size);
+        ctx.fillStyle = arr[i].color;
+        ctx.fillRect(49 + i * size, 400 - arr[i].n * size, size, arr[i].n * size);
+        ctx.strokeRect(49 + i * size, 400 - arr[i].n * size, size, arr[i].n * size);
     }
 }
 
-function bubble_sort(arr) {
+function other(arr) {
     var count = 0;
     for (i = 0; i < arr.length - 1; i++) {
         if (arr[i] < arr[i + 1]) {
@@ -87,13 +95,44 @@ function bubble_sort(arr) {
     draw(arr);
 }
 
+function bubble_sort(arr) {
+    let n = arr.length;
+    var i = i2;
+
+    arr[i].color = "#f66c91";
+    arr[i + 1].color = "#f66c91";
+    if (arr[i].n < arr[i + 1].n) {
+        // Swap the elements
+        let temp = arr[i];
+        arr[i] = arr[i + 1];
+        arr[i + 1] = temp;
+        arr[i + 1].color = "white";
+        count++;
+    }
+    n--;
+    draw(arr);
+    if (i2 == arr.length-2) {
+        i2 = 0;
+        count = 0;
+    } else {
+        //i2 = 0;
+        i2++;
+    }
+    if (i2 == arr.length-3 && count == 0) {
+        console.log("ended");
+        inter.stop();
+    }
+}
+
 function insertion_sort(arr) {
     var count = 0;
     i2++;
     var key = arr[i2];
     var j = i2 - 1;
-    while (j >= 0 && arr[j] < key) {
+    while (j >= 0 && arr[j].n < key.n) {
+        clear_color(arr);
         arr[j + 1] = arr[j];
+        arr[j].color = "white";
         j = j - 1;
     }
     if (i2 < arr.length) {
@@ -103,6 +142,7 @@ function insertion_sort(arr) {
     if (count == 0) {
         console.log("ended");
         inter.stop();
+        clear_color(arr);
     }
     draw(arr);
 }
@@ -111,8 +151,10 @@ function selectionSort(arr) {
     scanIndex = i2;
     count = 0;
     let lowest = i2;
-    for (let j = arr.length; j > i2; j--) {
-        if (arr[lowest] < arr[j]) {
+    console.log(arr[lowest].n)
+    for (let j = arr.length-1; j > i2; j--) {
+        console.log(j)
+        if (arr[lowest].n < arr[j].n) {
             lowest = j;
         }
     }
@@ -133,4 +175,10 @@ funcs = [bubble_sort, insertion_sort, selectionSort];
 function switch_sort(i) {
     sort = funcs[i];
     reset();
+}
+
+function clear_color(arr) {
+    for (i = 0; i < arr.length; i++) {
+        arr[i].color = "#f66c91";
+    }
 }
