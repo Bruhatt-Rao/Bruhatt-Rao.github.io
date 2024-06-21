@@ -16,7 +16,6 @@ This website is where i show off my work and who i am.
 ## Technologies Used
 
 - **Frontend**: HTML, CSS, JavaScript
-- **Frameworks/Libraries**: HTML Canvas
 
 ## License
 
