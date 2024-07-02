@@ -74,14 +74,27 @@ document.addEventListener('mousemove', function(event) {
   }
 });
 
-document.addEventListener('touchstart', function() {
-  isMouseDown = false;
-});
-
-document.addEventListener('touchend', function(event) {
+document.addEventListener('touchmove', function(event) {
   if (isMouseDown) {
     spawnConfetti(event.clientX, event.clientY);
   }
+});
+
+document.addEventListener('touchend', function() {
+  isMouseDown = false;
+});
+
+document.addEventListener('touchstart', function(event) {
+  if (overlay.style.opacity !== '0') {
+    overlay.style.opacity = '0';
+    main.style.opacity = "1";
+    setTimeout(() => {
+      overlay.style.display = 'none';
+      main.style.display = 'inline';
+    }, 500);
+  }
+  isMouseDown = true;
+  spawnConfetti(event.clientX, event.clientY);
 });
 
 function spawnConfetti(x, y) {
