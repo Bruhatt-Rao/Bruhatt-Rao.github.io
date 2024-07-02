@@ -75,10 +75,7 @@ document.addEventListener('mousemove', function(event) {
 });
 
 document.addEventListener('touchmove', function(event) {
-  console.log("touch")
-  if (isMouseDown) {
-    spawnConfetti(event.clientX, event.clientY);
-  }
+  spawnConfetti(event.clientX, event.clientY);
 });
 
 document.addEventListener('touchend', function() {
