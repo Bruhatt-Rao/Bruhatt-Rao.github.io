@@ -73,6 +73,16 @@ document.addEventListener('mousemove', function(event) {
   }
 });
 
+document.addEventListener('touchstart', function() {
+  isMouseDown = false;
+});
+
+document.addEventListener('touchend', function(event) {
+  if (isMouseDown) {
+    spawnConfetti(event.clientX, event.clientY);
+  }
+});
+
 function spawnConfetti(x, y) {
   for (let i = 0; i < 12; i++) {
     createConfetti(x, y);
@@ -119,4 +129,5 @@ function createConfetti(x, y) {
   }
 
   requestAnimationFrame(animateConfetti);
-}</script>
+}
+</script>
