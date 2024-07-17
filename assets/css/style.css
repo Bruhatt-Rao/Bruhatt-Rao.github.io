@@ -2,6 +2,7 @@
 	--main: #fffcf2;
 	--secondary: #121212;
 	--accent: #ffb83d;
+	--third: #fff;
 }
 
 @font-face {
@@ -62,7 +63,7 @@ h1 {
 }
 
 .card {
-	background-color: var(--secondary);
+	background-color: var(--third);
 	max-width: 300px;
 	margin: auto;
 	text-align: center;
