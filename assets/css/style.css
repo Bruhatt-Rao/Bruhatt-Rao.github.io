@@ -108,9 +108,16 @@ p {
 	color: var(--secondary);
 	max-width: 250px;
 	text-align: center;
-	font-family: arial;
+	font-family: "Roboto Mono", serif;
 	border: solid;
 	border-radius: 10px;
+}
+.card h1 {
+	font-family: title;
+}
+
+.card p {
+	height: 10vh;
 }
 
 .price {
