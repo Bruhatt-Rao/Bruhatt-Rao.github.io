@@ -62,9 +62,16 @@ main {
 
 #four {
 	align-items: center;
-	height: 100vh;
-	font-family: "Open Sans", sans-serif;
-  font-optical-sizing: auto;
+	height: 90vh;
+	font-family: title;
+}
+
+#four h1 {
+	font-size: 10vh;
+}
+
+#four h3 {
+	width: 80vw;
 }
 
 .info {
