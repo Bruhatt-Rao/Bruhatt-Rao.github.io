@@ -28,7 +28,9 @@ class Project {
         proj.innerHTML = `
             <img src='assets/imgs/${this.src}' style='width:100%'>
             <h1>${this.name}</h1>\n<p class='description'>${this.desc}</p>
-            <a href='${this.link}'><button>See More</button></a>`;
+            <a href='${this.link}'>
+                <button>See More</button>
+            </a>`;
         parent.appendChild(proj);
     }
 }
