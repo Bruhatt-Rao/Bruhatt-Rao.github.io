@@ -60,6 +60,13 @@ main {
 	flex-direction: column;
 }
 
+#four {
+	align-items: center;
+	height: 100vh;
+	font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+
 .info {
 	word-wrap: break-word;
 	font-family: "Playfair Display", serif;
