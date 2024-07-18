@@ -7,7 +7,7 @@
 
 @font-face {
   font-family: title;
-  src: url("kolak/KOLAK.woff");
+  src: url("fonts/kolak/KOLAK.woff");
 }
 
 html {
@@ -48,6 +48,7 @@ page-links {
 main {
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
 }
 
 .info {
@@ -62,12 +63,31 @@ h1 {
 	
 }
 
+p {
+	padding: 10vw;
+}
+
+#projects {
+	display: inline-flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.description {
+	padding: 10px;
+}
+
 .card {
-	background-color: var(--third);
-	max-width: 300px;
-	margin: auto;
+	padding: 5vh;
+	margin: 2.5vw;
+	background-color: var(--main);
+	color: var(--secondary);
+	max-width: 250px;
 	text-align: center;
 	font-family: arial;
+	border: solid;
+	border-radius: 10px;
 }
 
 .price {
@@ -79,8 +99,8 @@ h1 {
   border: none;
   outline: 0;
   padding: 12px;
-  color: white;
-  background-color: #000;
+  color: var(--secondary);
+  background-color: none;
   text-align: center;
   cursor: pointer;
   width: 100%;
