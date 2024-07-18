@@ -1,47 +1,45 @@
-var parent;
-let projects = [
-	{
-    	"name" : "Sorting Algorithm's", 
-    	"desc" : "Sorting Algorithm visualizer built in Javascript using the HTML Canvas Library",
-    	"link" : "https://bhim-rao.github.io/sorting/",
-    	"src"  : "sorting.png"
-	},
-	{
-    	"name" : "Conway's Game of Life", 
-    	"desc" : "Conway's Game of life implemented in Rust using macroquad",
-    	"link" : "https://bhim-rao.github.io/sorting/",
-    	"src"  : "sorting.png"
-	}
-];
+#ifndef Py_INTERNAL_MODULEOBJECT_H
+#define Py_INTERNAL_MODULEOBJECT_H
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-window.onload = function() {
-	console.log("running");
-	parent = document.getElementById("projects");
-	p = [];
-	for (var i = 0; i < projects.length; i++) {
-		p.push(new Project(projects[i]));
-	}
-	for (var i = 0; i < p.length; i++) {
-		p[i].show();
-		console.log(p[i]);
-	}
+#ifndef Py_BUILD_CORE
+#  error "this header requires Py_BUILD_CORE define"
+#endif
+
+typedef struct {
+    PyObject_HEAD
+    PyObject *md_dict;
+    PyModuleDef *md_def;
+    void *md_state;
+    PyObject *md_weaklist;
+    // for logging purposes after md_dict is cleared
+    PyObject *md_name;
+} PyModuleObject;
+
+static inline PyModuleDef* _PyModule_GetDef(PyObject *mod) {
+    assert(PyModule_Check(mod));
+    return ((PyModuleObject *)mod)->md_def;
 }
 
-class Project {
-	constructor(d) {
-		this.name = d["name"];
-		this.desc = d["desc"];
-		this.src  = d["src"];
-		this.link = d["link"];
-	}
-
-	show() {
-		var proj = document.createElement('div');
-		proj.className = 'card';
-		proj.innerHTML = `
-			<img src='assets/imgs/${this.src}' style='width:100%'>
-			<h1>${this.name}</h1>\n<p>${this.desc}</p>
-			<a href='${this.link}'><button>See More</button></a>`;
-		parent.appendChild(proj);
-	}
+static inline void* _PyModule_GetState(PyObject* mod) {
+    assert(PyModule_Check(mod));
+    return ((PyModuleObject *)mod)->md_state;
 }
+
+static inline PyObject* _PyModule_GetDict(PyObject *mod) {
+    assert(PyModule_Check(mod));
+    PyObject *dict = ((PyModuleObject *)mod) -> md_dict;
+    // _PyModule_GetDict(mod) must not be used after calling module_clear(mod)
+    assert(dict != NULL);
+    return dict;
+}
+
+PyObject* _Py_module_getattro_impl(PyModuleObject *m, PyObject *name, int suppress);
+PyObject* _Py_module_getattro(PyModuleObject *m, PyObject *name);
+
+#ifdef __cplusplus
+}
+#endif
+#endif /* !Py_INTE
