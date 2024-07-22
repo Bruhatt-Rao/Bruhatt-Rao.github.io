@@ -20,27 +20,28 @@ class Project {
                 this.desc = key["description"]
                 this.src  = (key["name"]).toLowerCase() + ".png"
                 this.link = key["html_url"]
+                this.size = key["size"]
             } else {
                 this.name = key["name"]
                 this.desc = key["description"]
                 this.src  = "example.png"
                 this.link = key["html_url"]
+                this.size = key["size"]
             }
         }
     }
 
     show() {
-        if (this.name) {
-            var proj = document.createElement('div');
-            proj.className = 'card';
-            proj.innerHTML = `
-                <img src='assets/imgs/${this.src}' style='width:100%'>
-                <h1>${this.name}</h1>\n<p class='description'>${this.desc}</p>
-                <a href='${this.link}'>
-                    <button>See More</button>
-                </a>`;
-            parent.appendChild(proj);
-        }
+        console.log(this.size);
+        var proj = document.createElement('div');
+        proj.className = 'card';
+        proj.innerHTML = `
+            <img src='assets/imgs/${this.src}' style='width:100%'>
+            <h1>${this.name}</h1>\n<p class='description'>${this.desc}</p>
+            <a href='${this.link}'>
+                <button>See More</button>
+            </a>`;
+        parent.appendChild(proj);
     }
 }
 
