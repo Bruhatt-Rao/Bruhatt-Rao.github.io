@@ -143,6 +143,71 @@ p {
   opacity: 0.7;
 }
 
+.card_mini {
+	padding: 5vh;
+	margin: 2.5vw;
+	background-color: var(--main);
+	color: var(--secondary);
+	width: 40vw;
+	text-align: center;
+	font-family: "Roboto Mono", serif;
+	border: solid;
+	border-radius: 10px;
+	display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.card_mini h1 {
+	font-family: title;
+}
+
+.card_mini img {
+	max-width: 15vw;
+	max-height: 15vw;
+}
+
+.card_mini p {
+	height: 10vh;
+}
+
+.card_mini text {
+	display: flex;
+	flex-direction: column;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.card_mini button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: var(--secondary);
+  background-color: none;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+.card_mini button:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+	.card_mini {
+		flex-direction: column;
+		width: 60vw;
+	}
+
+	.card_mini img {
+		max-width: 45vw;
+		max-height: 45vw;
+	}
+}
+
 blockquote {
 	font-size: 6vh;
 	font-style: italic;

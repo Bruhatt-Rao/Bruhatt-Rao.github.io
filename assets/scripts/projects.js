@@ -3,14 +3,18 @@ var parent;
 var projects = [];
 const blacklist = ["Bruhatt-Rao", "Bruhatt-Rao.github.io", "Volntr"];
 
-function display(a , depth = false) {
+function display(a , depth = false, mini=false) {
     let l = sort(a);
     if (!depth) {
         depth = l.length;
     }
     parent = document.getElementById("projects");
     for (var i = 0; i < depth; i++) {
-        l[i].show();
+        if (mini) {
+            l[i].show_mini();
+        } else {
+            l[i].show();
+        }
     }
 }
 
@@ -44,6 +48,22 @@ class Project {
             parent.appendChild(proj);
         }
     }
+
+    show_mini() {
+        if (this.name) {
+            var proj = document.createElement('div');
+            proj.className = 'card_mini';
+            proj.innerHTML = `
+                <img src='assets/imgs/${this.src}' style='width:100%'>
+                <text>
+                <h1>${this.name}</h1>\n<p class='description'>${this.desc}</p>
+                <a href='${this.link}'>
+                    <button>See More</button>
+                </a>
+                </text>`;
+            parent.appendChild(proj);
+        }
+    }
 }
 
 function get() {
@@ -59,6 +79,23 @@ function get() {
             }
         }
         display(projects);
+    };
+    req.send(null);
+}
+
+function get_mini() {
+    var req = new XMLHttpRequest();
+    req.overrideMimeType("application/json");
+    req.open('GET', "https://api.github.com/users/bruhatt-rao/repos", true);
+    req.onload  = function() {
+        var jsonResponse = JSON.parse(req.responseText);
+        for (i=0; i<jsonResponse.length; i++) {
+            var key = jsonResponse[i];
+            if (!blacklist.includes(key["name"])) {
+                projects.push(new Project(key));
+            }
+        }
+        display(projects, depth=2, mini=true);
     };
     req.send(null);
 }
