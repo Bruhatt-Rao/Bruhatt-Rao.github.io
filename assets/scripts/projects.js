@@ -3,15 +3,16 @@ var parent;
 var projects = [];
 const blacklist = ["Bruhatt-Rao", "Bruhatt-Rao.github.io", "Volntr"];
 
-function display(a) {
+function display(a , depth = false) {
     let l = sort(a);
+    if (!depth) {
+        depth = l.length;
+    }
     parent = document.getElementById("projects");
-    for (var i = 0; i < l.length; i++) {
+    for (var i = 0; i < depth; i++) {
         l[i].show();
     }
 }
-
-window.onload = get;
 
 class Project {
     constructor(key) {
