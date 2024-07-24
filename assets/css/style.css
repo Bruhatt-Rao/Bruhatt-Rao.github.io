@@ -126,8 +126,7 @@ p {
 	max-width: 250px;
 	text-align: center;
 	font-family: "Roboto Mono", serif;
-	border: solid;
-	border-radius: 10px;
+	border: solid 2px;
 }
 .card h1 {
 	font-family: title;
@@ -166,8 +165,7 @@ p {
 	width: 40vw;
 	text-align: center;
 	font-family: "Roboto Mono", serif;
-	border: solid;
-	border-radius: 10px;
+	border: solid 2px;
 	display: flex;
   flex-direction: row;
   align-items: center;
@@ -211,6 +209,17 @@ p {
   opacity: 0.7;
 }
 
+blockquote {
+	font-size: 6vh;
+	font-style: italic;
+	margin: 10vh;
+	margin-left: 15vw;
+	margin-right: 15vw;
+	padding: 4vh;
+	border: solid 2px;
+	max-width: 70vw;
+}
+
 @media (max-width: 768px) {
 	.card_mini {
 		flex-direction: column;
@@ -221,15 +230,12 @@ p {
 		max-width: 45vw;
 		max-height: 45vw;
 	}
-}
 
-blockquote {
-	font-size: 6vh;
-	font-style: italic;
-	margin: 10vh;
-	margin-left: 15vw;
-	margin-right: 15vw;
-	padding: 4vh;
-	border: solid 2px;
-	max-width: 70vw;
+	blockquote {
+		font-size: 3.5vh;
+	}
+
+	p {
+		padding-top: 0px;
+	}
 }
