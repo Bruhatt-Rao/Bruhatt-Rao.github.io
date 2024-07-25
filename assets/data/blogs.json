@@ -7,11 +7,6 @@
 	{
 		"name": "Sand Simulation",
 		"description": "Understanding how Conway's game of life and other cellular automata work",
-		"content" : "## Game of life algorithm\nThe game of life takes place in an infinite two dimensional grid of cells. However in this implementation the grid is finite. A cell can be alive or dead which can also be called populated and unpopulated. every cell relates to 8 of it's direct neighbors.\n<p align=\"center\">\n<img src=\"assets/imgs/gameoflife.png\" alt=\"drawing\" width=\"200\" text-align=\"center\"/>\n</p>\n\n### Rules:\n\n- if the cell is alive and has < 2 live neighbors it dies\n- if the cell is alive and has exactly 2 or 3 live neighbors it lives\n- if the cell is alive and has more than 3 neighbors it dies\n- if the cell is dead and has exactly 3 neighbors it becomes alive"
-	},
-	{
-		"name": "Cinnamon Language",
-		"description": "Understanding how Conway's game of life and other cellular automata work",
-		"content" : "## Game of life algorithm\nThe game of life takes place in an infinite two dimensional grid of cells. However in this implementation the grid is finite. A cell can be alive or dead which can also be called populated and unpopulated. every cell relates to 8 of it's direct neighbors.\n<p align=\"center\">\n<img src=\"assets/imgs/gameoflife.png\" alt=\"drawing\" width=\"200\" text-align=\"center\"/>\n</p>\n\n### Rules:\n\n- if the cell is alive and has < 2 live neighbors it dies\n- if the cell is alive and has exactly 2 or 3 live neighbors it lives\n- if the cell is alive and has more than 3 neighbors it dies\n- if the cell is dead and has exactly 3 neighbors it becomes alive"
+		"content" : "## Sand Algorithm\nThe simulation uses a grid of cells that are either filled (by sand) or empty. The algorithm iterates through every cell and if the cell is filled the program goes through some checks.\n<div align=\"center\">\n  <img src=\"grid.png\" alt=\"drawing\" width=\"200\" text-align=\"center\" style=\"border-radius: 10%;\"/>\n</div>\n\n### Checks:\n\n- If cell 1 is empty the program empties the current cell and fills cell 1\n- Else if cell 2 is empty the program empties the current cell and fills cell 2\n- Else if cell 3 is empty the program empties the current cell and fills cell 3\n- Else the current cell stays filled"
 	}
 ]
