@@ -49,6 +49,7 @@ page-links {
 	font-family: title;
 	color: var(--secondary);
 }
+
 page-links a {
 	margin: 0px;
 }
