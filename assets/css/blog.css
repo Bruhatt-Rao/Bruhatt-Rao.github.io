@@ -32,6 +32,7 @@ nav {
 	width: 70vw;
 	margin-left: 15vw;
 	margin-right: 15vw;
+	text-align: left;
 }
 
 page-title {
@@ -74,6 +75,14 @@ p {
 	font-size: 3vh;
 }
 
-h1 {
+.data {
+	padding: 10vh;
+}
+
+#name {
 	font-size: 4vh;
+}
+
+#markdown #cen {
+	text-align: center;
 }

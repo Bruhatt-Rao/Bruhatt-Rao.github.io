@@ -22,6 +22,7 @@ function get() {
         if (index < jsonResponse.length) {
         	var key = jsonResponse[index];
         	document.getElementById("title").innerHTML = key["name"];
+        	document.getElementById("desc").innerHTML = key["description"];
         	document.getElementById("markdown").innerHTML = MarkdownToHtml.parse(key["content"]);
         }
     };
