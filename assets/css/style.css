@@ -27,6 +27,10 @@ nav {
 	flex-direction: column;
 }
 
+.section {
+	font-family: "Georgia";
+}
+
 page-title {
 	display: flex;
 	flex-direction: row;
@@ -77,25 +81,6 @@ main {
 
 #four h3 {
 	width: 80vw;
-}
-
-.info {
-	word-wrap: break-word;
-	font-family: "Playfair Display", serif;
-	font-size: 2.5vh;
-	width: 75%;
-	color: var(--secondary);
-}
-
-h1 {
-	
-}
-
-p {
-	padding: 7vw;
-	margin: 0;
-	font-size: 3vh;
-	padding-top: 4vh;
 }
 
 #projects {
@@ -218,6 +203,22 @@ blockquote {
 	padding: 4vh;
 	border: solid 2px;
 	max-width: 70vw;
+}
+
+.tech {
+	margin-bottom: 6.5vh;
+}
+
+.tech img {
+	padding: 2vw;
+}
+
+p {
+	padding: 7vw;
+	margin: 0;
+	font-size: 3vh;
+	font-family: "Georgia";
+	padding-top: 4vh;
 }
 
 @media (max-width: 768px) {
