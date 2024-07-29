@@ -23,7 +23,7 @@ function get() {
         	var key = jsonResponse[index];
         	document.getElementById("title").innerHTML = key["name"];
         	document.getElementById("desc").innerHTML = key["description"];
-        	document.getElementById("markdown").innerHTML = MarkdownToHtml.parse(key["content"]);
+            document.getElementById("markdown").innerHTML = MarkdownToHtml.parse(key["content"]).replaceAll("<p>    -    ", "<p>&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;");
         }
     };
     req.send(null);
