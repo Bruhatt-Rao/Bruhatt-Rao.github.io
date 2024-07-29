@@ -41,6 +41,15 @@ page-title {
 	color: var(--secondary);
 }
 
+page-title a {
+	color: var(--secondary);
+	text-decoration: none;
+}
+
+a:hover {
+	opacity: 0.7;
+}
+
 page-links {
 	display: flex;
 	flex-direction: row;
