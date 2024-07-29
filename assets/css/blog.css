@@ -86,3 +86,19 @@ p {
 #markdown #cen {
 	text-align: center;
 }
+
+.card_mini a {
+	text-decoration: none;
+	color: var(--secondary);
+}
+
+.card_mini {
+	border: 1px solid var(--secondary);
+	padding: 2vh;
+	margin: 5vh;
+	min-width: fit-content;
+}
+
+.card_mini:hover {
+	opacity: 0.7;
+}
