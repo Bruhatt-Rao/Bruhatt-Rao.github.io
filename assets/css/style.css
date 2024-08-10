@@ -5,6 +5,11 @@
 	--third: #fff;
 }
 
+::selection {
+  background: var(--secondary);
+  color: var(--main);
+}
+
 @font-face {
   font-family: title;
   src: url("fonts/kolak/KOLAK.woff");
@@ -15,6 +20,7 @@ html {
 	width: 100%;
 	background-color: var(--main);
 	justify-content: center;
+	color: var(--secondary);
 }
 
 main {
@@ -116,12 +122,12 @@ main {
 .card {
 	padding: 5vh;
 	margin: 2.5vw;
-	background-color: var(--main);
-	color: var(--secondary);
+	background-color: #fffcf2;
+	color: #121212;
 	max-width: 250px;
 	text-align: center;
 	font-family: "Roboto Mono", serif;
-	border: solid 2px;
+	border: solid 2px var(--secondary);
 }
 .card h1 {
 	font-family: title;
@@ -155,8 +161,8 @@ main {
 .card_mini {
 	padding: 5vh;
 	margin: 2.5vw;
-	background-color: var(--main);
-	color: var(--secondary);
+	background-color: #fffcf2;
+	color: #121212;
 	width: 40vw;
 	text-align: center;
 	font-family: "Roboto Mono", serif;
@@ -249,4 +255,86 @@ p {
 	p {
 		padding-top: 0px;
 	}
+}
+.dark {
+	position: fixed;
+	bottom: 10px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  /* Variables */
+ --switch_width: 2em;
+ --switch_height: 1em;
+ --thumb_color: #e8e8e8;
+ --track_color: var(--secondary);
+ --track_active_color: var(--secondary);
+ --outline_color: #000;
+ font-size: 17px;
+ position: relative;
+ display: inline-block;
+ width: var(--switch_width);
+ height: var(--switch_height);
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+ opacity: 0;
+ width: 0;
+ height: 0;
+}
+
+/* The slider */
+.slider {
+ box-sizing: border-box;
+ border: 2px solid var(--outline_color);
+ position: absolute;
+ cursor: pointer;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background-color: var(--track_color);
+ transition: .15s;
+ border-radius: var(--switch_height);
+}
+
+.slider:before {
+ box-sizing: border-box;
+ position: absolute;
+ content: "";
+ height: var(--switch_height);
+ width: var(--switch_height);
+ border: 2px solid var(--outline_color);
+ border-radius: 100%;
+ left: -2px;
+ bottom: -2px;
+ background-color: var(--thumb_color);
+ transform: translateY(-0.2em);
+ box-shadow: 0 0.2em 0 var(--outline_color);
+ transition: .15s;
+}
+
+input:checked + .slider {
+ background-color: var(--track_active_color);
+}
+
+input:focus-visible + .slider {
+ box-shadow: 0 0 0 2px var(--track_active_color);
+}
+
+/* Raise thumb when hovered */
+input:hover + .slider:before {
+ transform: translateY(-0.3em);
+ box-shadow: 0 0.3em 0 var(--outline_color);
+}
+
+input:checked + .slider:before {
+ transform: translateX(calc(var(--switch_width) - var(--switch_height))) translateY(-0.2em);
+}
+
+/* Raise thumb when hovered & checked */
+input:hover:checked + .slider:before {
+ transform: translateX(calc(var(--switch_width) - var(--switch_height))) translateY(-0.3em);
+ box-shadow: 0 0.3em 0 var(--outline_color);
 }
