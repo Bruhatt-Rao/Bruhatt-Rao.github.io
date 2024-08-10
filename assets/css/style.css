@@ -259,6 +259,7 @@ p {
 .dark {
 	position: fixed;
 	bottom: 10px;
+	right: 10px;
 }
 
 /* The switch - the box around the slider */
@@ -266,7 +267,7 @@ p {
   /* Variables */
  --switch_width: 2em;
  --switch_height: 1em;
- --thumb_color: #e8e8e8;
+ --thumb_color: var(--third);
  --track_color: var(--secondary);
  --track_active_color: var(--secondary);
  --outline_color: #000;
