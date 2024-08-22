@@ -1,4 +1,4 @@
-var parent;
+var parent, load;
 var first = true;
 // {'name': 'Benchmark', 'desc': 'A CLI tool built using python for benchmarking how long python files take to run', 'src': 'benchmark.png', 'link': 'https://github.com/Bhim-Rao/Benchmark'}, {'name': 'GameOfLife', 'desc': "A rust implementation of Conway's game of life using macroquad", 'src': 'gameoflife.png', 'link': 'https://github.com/Bhim-Rao/GameOfLife'}, {'name': 'GeneticAlgorithm', 'desc': 'An example of how a Genetic Algorithm works written in rust', 'src': 'geneticalgorithm.png', 'link': 'https://github.com/Bhim-Rao/GeneticAlgorithm'}, {'name': 'SandSim', 'desc': 'A basic 2d sand simulation written in Rust using macroquad', 'src': 'sandsim.png', 'link': 'https://github.com/Bhim-Rao/SandSim'}, {'name': 'Simple-Neural', 'desc': 'A python library to run a simple lightweight neural network', 'src': 'simple-neural.png', 'link': 'https://github.com/Bhim-Rao/Simple-Neural'}, {'name': 'Sorting', 'desc': 'an HTML Canvas Visualization of sorting algorithms', 'src': 'sorting.png', 'link': 'https://github.com/Bhim-Rao/Sorting'}, {'name': 'WindTunnel', 'desc': 'an HTML Canvas Visualization of a wind tunnel', 'src': 'windtunnel.png', 'link': 'https://github.com/Bhim-Rao/WindTunnel'}
 var projects = [];
@@ -10,6 +10,7 @@ function display(a , depth = false, mini=false) {
         depth = l.length;
     }
     parent = document.getElementById("projects");
+    load = document.getElementById("load");
     for (var i = 0; i < depth; i++) {
         if (mini) {
             l[i].show_mini();
@@ -38,7 +39,8 @@ class Project {
 
     show() {
         if (first) {
-            parent.innerHTML = "";
+            load.classList.add('rem');
+            setTimeout(function(){console.log("log");load.innerHTML = "";}, 1000);
             first = false;
         }
         if (this.name) {
@@ -56,7 +58,8 @@ class Project {
 
     show_mini() {
         if (first) {
-            parent.innerHTML = "";
+            load.classList.add('rem');
+            setTimeout(function(){console.log("log");load.innerHTML = "";}, 1000);
             first = false;
         }
         if (this.name) {
