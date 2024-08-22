@@ -146,8 +146,8 @@ main {
   border: none;
   outline: 0;
   padding: 12px;
-  color: var(--secondary);
-  background-color: none;
+  color: #121212;
+  border: solid 2px #121212;
   text-align: center;
   cursor: pointer;
   width: 100%;
