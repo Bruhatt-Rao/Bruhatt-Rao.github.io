@@ -146,8 +146,9 @@ main {
   border: none;
   outline: 0;
   padding: 12px;
-  color: #121212;
-  border: solid 2px #121212;
+  color: var(--secondary);
+  border: solid 2px var(--secondary);
+  background-color: var(--main);
   text-align: center;
   cursor: pointer;
   width: 100%;
@@ -199,7 +200,8 @@ main {
   outline: 0;
   padding: 12px;
   color: var(--secondary);
-  background-color: none;
+  border: solid 2px var(--secondary);
+  background-color: var(--main);
   text-align: center;
   cursor: pointer;
   width: 100%;
