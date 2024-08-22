@@ -1,4 +1,5 @@
 var parent;
+var first = true;
 // {'name': 'Benchmark', 'desc': 'A CLI tool built using python for benchmarking how long python files take to run', 'src': 'benchmark.png', 'link': 'https://github.com/Bhim-Rao/Benchmark'}, {'name': 'GameOfLife', 'desc': "A rust implementation of Conway's game of life using macroquad", 'src': 'gameoflife.png', 'link': 'https://github.com/Bhim-Rao/GameOfLife'}, {'name': 'GeneticAlgorithm', 'desc': 'An example of how a Genetic Algorithm works written in rust', 'src': 'geneticalgorithm.png', 'link': 'https://github.com/Bhim-Rao/GeneticAlgorithm'}, {'name': 'SandSim', 'desc': 'A basic 2d sand simulation written in Rust using macroquad', 'src': 'sandsim.png', 'link': 'https://github.com/Bhim-Rao/SandSim'}, {'name': 'Simple-Neural', 'desc': 'A python library to run a simple lightweight neural network', 'src': 'simple-neural.png', 'link': 'https://github.com/Bhim-Rao/Simple-Neural'}, {'name': 'Sorting', 'desc': 'an HTML Canvas Visualization of sorting algorithms', 'src': 'sorting.png', 'link': 'https://github.com/Bhim-Rao/Sorting'}, {'name': 'WindTunnel', 'desc': 'an HTML Canvas Visualization of a wind tunnel', 'src': 'windtunnel.png', 'link': 'https://github.com/Bhim-Rao/WindTunnel'}
 var projects = [];
 const blacklist = ["Bruhatt-Rao", "Bruhatt-Rao.github.io", "Volntr"];
@@ -36,6 +37,10 @@ class Project {
     }
 
     show() {
+        if (first) {
+            parent.innerHTML = "";
+            first = false;
+        }
         if (this.name) {
             var proj = document.createElement('div');
             proj.className = 'card';
@@ -50,6 +55,10 @@ class Project {
     }
 
     show_mini() {
+        if (first) {
+            parent.innerHTML = "";
+            first = false;
+        }
         if (this.name) {
             var proj = document.createElement('div');
             proj.className = 'card_mini';
