@@ -40,7 +40,7 @@ class Project {
     show() {
         if (first) {
             load.classList.add('rem');
-            setTimeout(function(){console.log("log");load.innerHTML = "";}, 1000);
+            setTimeout(function(){console.log("log");load.remove();}, 1000);
             first = false;
         }
         if (this.name) {
@@ -59,7 +59,7 @@ class Project {
     show_mini() {
         if (first) {
             load.classList.add('rem');
-            setTimeout(function(){console.log("log");load.innerHTML = "";}, 1000);
+            setTimeout(function(){console.log("log");load.remove();}, 1000);
             first = false;
         }
         if (this.name) {
