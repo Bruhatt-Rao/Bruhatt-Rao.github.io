@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<style>
+		body {
+			background-color: black;
+			color: grey;
+			margin: 0px;
+		}
+		pre {
+			display: flex;
+   			align-items: center;
+   			justify-content: center;
+   			position: relative;
+   			width: 100%;
+   			height: 100vh;
+			font-weight: 400;
+			font-size: 25px;
+			text-align: center;
+			letter-spacing: 10px;
+			line-height: 40px;
+			margin: 0px;
+		}
+		div {
+			position: relative;
+		}
+		#bold {
+			font-weight: 900;
+			color: cyan;
+		}
+	</style>
+	<pre><div id="text">n </div></pre>
+	<script type="text/javascript">
+
+// Function which rounds to the nearest 
+function myround(x) {
+	var re = 5 * (Math.round(x/5))
+	if ([5,25,35].includes(re)) {
+		return re
+	} else {
+		return 10 * (Math.round(x/10))
+	};
+};
+
+const b = "<span id='bold'>";
+const b2 = "</span>";
+
+var text = `${b}I T${b2} L ${b}I S${b2} A S A M P M`;
+
+var t2 = [
+`N I N E
+${b}O N E${b2} S I X T H R E E
+F O U R F I V E T W O
+E I G H T E L E V E N
+S E V E N T W E L V E
+T E N S E `,
+`N I N E
+O N E S I X T H R E E
+F O U R F I V E ${b}T W O${b2}
+E I G H T E L E V E N
+S E V E N T W E L V E
+T E N S E `,
+`N I N E
+O N E S I X ${b}T H R E E${b2}
+F O U R F I V E T W O
+E I G H T E L E V E N
+S E V E N T W E L V E
+T E N S E `,
+`N I N E
+O N E S I X T H R E E
+${b}F O U R${b2} F I V E T W O
+E I G H T E L E V E N
+S E V E N T W E L V E
+T E N S E `,
+`N I N E
+O N E S I X T H R E E
+F O U R ${b}F I V E${b2} T W O
+E I G H T E L E V E N
+S E V E N T W E L V E
+T E N S E `,
+`N I N E
+O N E ${b}S I X${b2} T H R E E
+F O U R F I V E T W O
+E I G H T E L E V E N
+S E V E N T W E L V E
+T E N S E `,
+`N I N E
+O N E S I X T H R E E
+F O U R F I V E T W O
+E I G H T E L E V E N
+${b}S E V E N${b2} T W E L V E
+T E N S E `,
+`N I N E
+O N E S I X T H R E E
+F O U R F I V E T W O
+${b}E I G H T${b2} E L E V E N
+S E V E N T W E L V E
+T E N S E `,
+`${b}N I N E${b2}
+O N E S I X T H R E E
+F O U R F I V E T W O
+E I G H T E L E V E N
+S E V E N T W E L V E
+T E N S E `,
+`N I N E
+O N E S I X T H R E E
+F O U R F I V E T W O
+E I G H T E L E V E N
+S E V E N T W E L V E
+${b}T E N${b2} S E `,
+`N I N E
+O N E S I X T H R E E
+F O U R F I V E T W O
+E I G H T ${b}E L E V E N${b2}
+S E V E N T W E L V E
+T E N S E `,
+`N I N E
+O N E S I X T H R E E
+F O U R F I V E T W O
+E I G H T E L E V E N
+S E V E N ${b}T W E L V E${b2}
+T E N S E `,
+
+]
+
+
+minute = {
+	5: `
+A C Q U A R T E R D C
+T W E N T Y ${b}F I V E${b2} X
+H A L F S T E N F T O
+${b}P A S T${b2} E R U `,
+	10: `
+A C Q U A R T E R D C
+T W E N T Y F I V E X
+H A L F S ${b}T E N${b2} F T O
+${b}P A S T${b2} E R U `,
+	20: `
+A C Q U A R T E R D C
+${b}T W E N T Y${b2} F I V E X
+H A L F S T E N F T O
+${b}P A S T${b2} E R U `,
+	25: `
+${b}A${b2} C ${b}Q U A R T E R${b2} D C
+T W E N T Y F I V E X
+H A L F S T E N F T O
+${b}P A S T${b2} E R U `,
+	30: `
+A C Q U A R T E R D C
+T W E N T Y F I V E X
+${b}H A L F${b2} S T E N F T O
+${b}P A S T${b2} E R U `,
+	35: `
+A C ${b}Q U A R T E R${b2} D C
+T W E N T Y F I V E X
+H A L F S T E N F ${b}T O${b2}
+P A S T E R U `,
+	40: `
+A C Q U A R T E R D C
+${b}T W E N T Y${b2} F I V E X
+H A L F S T E N F ${b}T O${b2}
+P A S T E R U `,
+	50: `
+A C Q U A R T E R D C
+T W E N T Y F I V E X
+H A L F S ${b}T E N${b2} F ${b}T O${b2}
+P A S T E R U `,
+	60: `
+A C Q U A R T E R D C
+T W E N T Y F I V E X
+H A L F S T E N F T O
+P A S T E R U `
+}
+
+
+// Need a better solution for this currently i am getting the time as str in the form "4:20 AM" and then processing it to get the 4 and 20 as integers
+var now = new Date().toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3").replace(" PM", "").split(":");
+var m = myround(+now[1]);
+var h = +now[0];
+
+text += minute[m.toString()]
+if (m > 30) {
+	text += t2[h]
+} else {
+	text += t2[h-1]
+}
+
+if (m == 0) {
+	text += `${b}O C L O C K${b2}`
+} else {
+	text += `O C L O C K`
+}
+
+window.addEventListener('load', function() {
+	console.log(m)
+	document.getElementById("text").innerHTML = text.replace("\n", "</br>");
+})
+
+	</script>
+</body>
+</html>
