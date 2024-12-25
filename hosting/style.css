@@ -392,11 +392,3 @@
   75% {transform: translateX(300px);}
   100% {transform: translateX(0);}
 }
-
-.main {
-	width: 100vw;
-	height: 85vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
