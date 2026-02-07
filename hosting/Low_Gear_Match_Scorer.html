@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Low Gear - V5RC Match Scorer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* === FLEX LAYOUT: page stack === */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #e5e5e5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* === FLEX: header row === */
+        .header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+            background: #c00000;
+            color: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .header-left {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 15px;
+            flex: 0 1 auto;
+            min-width: 0;
+        }
+        
+        .menu-icon {
+            flex-shrink: 0;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .title {
+            flex: 0 1 auto;
+            min-width: 0;
+            font-size: 18px;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .header-right {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        
+        .match-type {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+            font-size: 16px;
+            padding: 6px 12px 6px 14px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
+        }
+        
+        .trash-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            padding: 2px;
+        }
+        
+        .trash-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+        
+        /* === FLEX: autonomous score bar === */
+        .autonomous {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: #d0d0d0;
+            padding: 20px;
+            gap: 16px;
+        }
+        
+        .auto-score-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: nowrap;
+            font-size: 48px;
+            font-weight: bold;
+        }
+        
+        .auto-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 32px;
+            font-weight: bold;
+            border: 4px solid;
+        }
+        
+        .red-label {
+            color: #c00000;
+            border-color: #c00000;
+            background: white;
+        }
+        
+        .blue-label {
+            color: #0070c0;
+            border-color: #0070c0;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        /* === FLEX: main scroll area === */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+            min-height: 0;
+            padding: 20px;
+            gap: 20px;
+        }
+        
+        .scoring-section {
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
+        }
+        
+        .section-title {
+            flex-shrink: 0;
+            height: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 15px;
+        }
+        
+        /* === FLEX: goal row — 3 columns (red | graphic | blue) === */
+         .goal-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            gap: 15px;
+        }
+        
+        
+        .controls {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+        
+        .controls-red {
+            justify-content: flex-start;
+        }
+        
+        .controls-blue {
+            justify-content: flex-end;
+        }
+        
+        .score-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            min-width: 60px;
+            font-size: 56px;
+            font-weight: bold;
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        
+        .goal-image {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 auto;
+        }
+        
+        .goal-graphic {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 180px;
+            height: 80px;
+            border: 3px solid #333;
+            border-radius: 5px;
+            position: relative;
+            background: linear-gradient(to bottom, #f5f5f5 0%, #e0e0e0 100%);
+        }
+        
+        .goal-graphic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20px;
+            right: 20px;
+            height: 15px;
+            background: #ffa500;
+            border-bottom: 2px solid #333;
+        }
+        
+        .goal-graphic .symbols {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        
+        .center-goal {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            flex-shrink: 0;
+            width: 150px;
+            height: 120px;
+        }
+        
+        .center-top {
+            flex: 0 0 40px;
+            background: #e0e0e0;
+            border: 3px solid #333;
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .center-base {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            flex: 1 1 auto;
+            min-height: 0;
+            background: linear-gradient(to bottom, #d0d0d0, #a0a0a0);
+            border: 3px solid #333;
+            border-top: none;
+            position: relative;
+        }
+        
+        .center-support {
+            width: 30px;
+            height: 60px;
+            background: #ffa500;
+            border: 2px solid #333;
+            position: absolute;
+        }
+        
+        .support-left {
+            left: 20%;
+        }
+        
+        .support-right {
+            right: 20%;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            border: none;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .btn:active {
+            transform: scale(0.95);
+        }
+        
+        .btn, .footer-btn, .reset-all {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        
+        .btn-red-plus,
+        .btn-red-minus {
+            border-radius: 50%;
+        }
+        
+        .btn-red-plus {
+            background: #c00000;
+            color: white;
+        }
+        
+        .btn-red-minus {
+            background: #ffc0c0;
+            color: #c00000;
+        }
+        
+        .btn-blue-plus {
+            background: #0070c0;
+            color: white;
+        }
+        
+        .btn-blue-minus {
+            background: #c0d9f0;
+            color: #0070c0;
+        }
+        
+        .btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+        
+        /* === FLEX: parking section — 2 zones side by side === */
+        .parking-section {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: nowrap;
+        }
+        
+        .parking-zone {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1 1 0%;
+            min-width: 0;
+        }
+        
+        .park-graphic {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+            position: relative;
+            background: rgba(0,0,0,0.05);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            box-shadow: inset 0 0 0 4px;
+        }
+        
+        .red-zone {
+            box-shadow: inset 0 0 0 4px #c00000;
+        }
+        
+        .blue-zone {
+            box-shadow: inset 0 0 0 4px #0070c0;
+        }
+        
+        .robot-icon {
+            width: 60px;
+            height: 40px;
+            border: 3px solid #333;
+            border-radius: 8px;
+            background: #666;
+            position: relative;
+        }
+        
+        .robot-icon::before,
+        .robot-icon::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #333;
+            border-radius: 50%;
+            bottom: -8px;
+        }
+        
+        .robot-icon::before {
+            left: 5px;
+        }
+        
+        .robot-icon::after {
+            right: 5px;
+        }
+        
+        .park-controls {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        
+        .park-controls .score-display {
+            font-size: 48px;
+            min-width: 60px;
+        }
+        
+        .park-controls .btn {
+            width: 45px;
+            height: 45px;
+            font-size: 24px;
+        }
+        
+        /* === FLEX: footer nav === */
+        .footer {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            flex-shrink: 0;
+            background: #c00000;
+            padding: 15px;
+        }
+        
+        .footer-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            flex: 0 1 auto;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+        
+        .footer-btn.active {
+            background: rgba(0,0,0,0.25);
+        }
+        
+        .footer-btn.active .footer-icon {
+            outline: 2px solid white;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+        
+        .footer-icon {
+            font-size: 24px;
+        }
+        
+        .reset-all {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: center;
+            flex-shrink: 0;
+            background: #666;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+        
+        .reset-all:hover {
+            background: #555;
+        }
+        
+        /* === MOBILE: all flexbox, no floats/margins for layout === */
+        @media (max-width: 768px) {
+            body {
+                background: #d8d8d8;
+            }
+            
+            .header {
+                padding: 12px 16px;
+            }
+            
+            .title {
+                font-size: 16px;
+                max-width: 120px;
+            }
+            
+            .match-type {
+                font-size: 14px;
+                padding: 6px 12px;
+                background: #b0b0b0;
+                color: #1a1a1a;
+            }
+            
+            .autonomous {
+                padding: 14px 16px;
+                background: #d0d0d0;
+                gap: 14px;
+            }
+            
+            .auto-score-row {
+                font-size: 36px;
+                gap: 14px;
+                color: #1a1a1a;
+            }
+            
+            .auto-label {
+                width: 48px;
+                height: 48px;
+                font-size: 24px;
+                border-width: 3px;
+                border-color: white;
+            }
+            
+            .blue-label {
+                border-radius: 4px;
+            }
+            
+            .main-content {
+                padding: 14px;
+                gap: 14px;
+                background: #d8d8d8;
+            }
+            
+            .scoring-section {
+                padding: 14px 16px;
+                background: white;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            }
+            
+            .section-title {
+                font-size: 14px;
+                margin-bottom: 12px;
+                color: #444;
+            }
+            
+            /* FLEX: keep goal row as row on mobile too */
+            .goal-row {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+                gap: 10px;
+            }
+            
+            .goal-row .controls-red,
+            .goal-row .controls-blue {
+                flex: 0 0 auto;
+            }
+            
+            .goal-row .goal-image {
+                flex: 0 0 auto;
+            }
+            
+            .goal-graphic {
+                width: 100px;
+                height: 48px;
+                background: #e8e8e8;
+                border: 2px solid #333;
+                border-radius: 6px;
+            }
+            
+            .goal-graphic::before {
+                left: 12px;
+                right: 12px;
+                height: 10px;
+            }
+            
+            .goal-graphic .symbols {
+                font-size: 18px;
+                gap: 4px;
+                color: #333;
+            }
+            
+            .center-goal {
+                width: 90px;
+                height: 70px;
+            }
+            
+            .center-top {
+                flex: 0 0 24px;
+                border-width: 2px;
+            }
+            
+            .center-base {
+                border-width: 2px;
+            }
+            
+            .center-support {
+                width: 18px;
+                height: 36px;
+            }
+            
+            .score-display {
+                font-size: 38px;
+                min-width: 48px;
+                color: #1a1a1a;
+            }
+            
+            .btn {
+                width: 44px;
+                height: 44px;
+                font-size: 24px;
+                border-radius: 8px;
+            }
+            
+            .btn-red-plus,
+            .btn-red-minus {
+                border-radius: 8px;
+            }
+            
+            .park-graphic {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .robot-icon {
+                width: 44px;
+                height: 30px;
+            }
+            
+            .park-controls .score-display {
+                font-size: 34px;
+                min-width: 44px;
+            }
+            
+            .park-controls .btn {
+                width: 44px;
+                height: 44px;
+                font-size: 22px;
+            }
+            
+            .footer {
+                padding: 12px;
+            }
+            
+            .footer-btn {
+                font-size: 11px;
+            }
+            
+            .footer-icon {
+                font-size: 20px;
+            }
+            
+            .reset-all {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-left {
+                gap: 10px;
+            }
+            
+            .auto-score-row {
+                font-size: 30px;
+                gap: 10px;
+            }
+            
+            .auto-label {
+                width: 42px;
+                height: 42px;
+                font-size: 20px;
+            }
+            
+            .title {
+                max-width: 90px;
+            }
+            
+            .goal-graphic {
+                width: 88px;
+                height: 44px;
+            }
+            
+            .goal-graphic .symbols {
+                font-size: 16px;
+            }
+            
+            .center-goal {
+                width: 80px;
+                height: 64px;
+            }
+            
+            .center-top {
+                flex: 0 0 22px;
+            }
+            
+            .center-base {
+                flex: 1 1 auto;
+            }
+            
+            .score-display {
+                font-size: 34px;
+            }
+            
+            .parking-section {
+                flex-direction: row;
+                align-items: center;
+                gap: 16px;
+            }
+            
+            .parking-zone {
+                flex: 0 0 auto;
+            }
+            
+            .park-graphic {
+                width: 80px;
+                height: 80px;
+            }
+            
+            select, input, button {
+                font-size: 16px;
+            }
+        }
+        
+        @supports (padding: max(0px)) {
+            .header {
+                padding-left: max(16px, env(safe-area-inset-left));
+                padding-right: max(16px, env(safe-area-inset-right));
+            }
+            .footer {
+                padding-bottom: max(12px, env(safe-area-inset-bottom));
+            }
+        }
+    </style>
+</head>
+<body>    
+    <div class="autonomous">
+        <div class="auto-score-row">
+            <span id="red-auto-display">0</span>
+            <div class="auto-label red-label">A</div>
+            <div class="auto-label blue-label">A</div>
+            <span id="blue-auto-display">0</span>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <!-- High Mid Goal -->
+        <div class="scoring-section">
+            <div class="section-title">HIGH MID GOAL (11 pts)</div>
+            <div class="goal-row">
+                <div class="controls controls-red">
+                    <div class="score-display" id="red-high">0</div>
+                    <div class="btn-group">
+                        <button class="btn btn-red-plus" onclick="change('red-high', 1)">+</button>
+                        <button class="btn btn-red-minus" onclick="change('red-high', -1)" data-for="red-high">−</button>
+                    </div>
+                </div>
+                
+                <div class="goal-image">
+                    <div class="goal-graphic">
+                        <div class="symbols">◁ × ▷</div>
+                    </div>
+                </div>
+                
+                <div class="controls controls-blue">
+                    <div class="btn-group">
+                        <button class="btn btn-blue-plus" onclick="change('blue-high', 1)">+</button>
+                        <button class="btn btn-blue-minus" onclick="change('blue-high', -1)" data-for="blue-high">−</button>
+                    </div>
+                    <div class="score-display" id="blue-high">0</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Low Middle Goal -->
+        <div class="scoring-section">
+            <div class="section-title">LOW MIDDLE GOAL (7 pts)</div>
+            <div class="goal-row">
+                <div class="controls controls-red">
+                    <div class="score-display" id="red-low">0</div>
+                    <div class="btn-group">
+                        <button class="btn btn-red-plus" onclick="change('red-low', 1)">+</button>
+                        <button class="btn btn-red-minus" onclick="change('red-low', -1)" data-for="red-low">−</button>
+                    </div>
+                </div>
+                
+                <div class="goal-image">
+                    <div class="goal-graphic">
+                        <div class="symbols">◁ × ▷</div>
+                    </div>
+                </div>
+                
+                <div class="controls controls-blue">
+                    <div class="btn-group">
+                        <button class="btn btn-blue-plus" onclick="change('blue-low', 1)">+</button>
+                        <button class="btn btn-blue-minus" onclick="change('blue-low', -1)" data-for="blue-low">−</button>
+                    </div>
+                    <div class="score-display" id="blue-low">0</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Center Goal Visual -->
+        <div class="scoring-section">
+            <div class="section-title">PARK ZONE BALLS (5 pts)</div>
+            <div class="goal-row">
+                <div class="controls controls-red">
+                    <div class="score-display" id="red-park">0</div>
+                    <div class="btn-group">
+                        <button class="btn btn-red-plus" onclick="change('red-park', 1)">+</button>
+                        <button class="btn btn-red-minus" onclick="change('red-park', -1)" data-for="red-park">−</button>
+                    </div>
+                </div>
+                
+                <div class="goal-image">
+                    <div class="center-goal">
+                        <div class="center-top"></div>
+                        <div class="center-base">
+                            <div class="center-support support-left"></div>
+                            <div class="center-support support-right"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="controls controls-blue">
+                    <div class="btn-group">
+                        <button class="btn btn-blue-plus" onclick="change('blue-park', 1)">+</button>
+                        <button class="btn btn-blue-minus" onclick="change('blue-park', -1)" data-for="blue-park">−</button>
+                    </div>
+                    <div class="score-display" id="blue-park">0</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Parking -->
+        <div class="scoring-section">
+            <div class="section-title">ROBOT PARKED (13 pts)</div>
+            <div class="parking-section">
+                <div class="parking-zone">
+                    <div class="park-graphic red-zone">
+                        <div class="robot-icon"></div>
+                    </div>
+                    <div class="park-controls">
+                        <button class="btn btn-red-minus" onclick="change('red-parked', -1)" data-for="red-parked">−</button>
+                        <div class="score-display" id="red-parked">0</div>
+                        <button class="btn btn-red-plus" onclick="change('red-parked', 1)">+</button>
+                    </div>
+                </div>
+                
+                <div class="parking-zone">
+                    <div class="park-graphic blue-zone">
+                        <div class="robot-icon"></div>
+                    </div>
+                    <div class="park-controls">
+                        <button class="btn btn-blue-minus" onclick="change('blue-parked', -1)" data-for="blue-parked">−</button>
+                        <div class="score-display" id="blue-parked">0</div>
+                        <button class="btn btn-blue-plus" onclick="change('blue-parked', 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="reset-all" onclick="resetAll()">RESET ALL SCORES</button>
+    </div> 
+    
+    <script>
+        const scores = {
+            'red-auto': 0,
+            'blue-auto': 0,
+            'red-high': 0,
+            'blue-high': 0,
+            'red-low': 0,
+            'blue-low': 0,
+            'red-park': 0,
+            'blue-park': 0,
+            'red-parked': 0,
+            'blue-parked': 0
+        };
+        
+        function change(id, delta) {
+            scores[id] = Math.max(0, scores[id] + delta);
+            
+            // Limit parked to 0 or 1 (only one robot per alliance)
+            if (id.includes('parked')) {
+                scores[id] = Math.min(1, scores[id]);
+            }
+            
+            // Auto is also 0 or 1 (crossed line or not)
+            if (id.includes('auto')) {
+                scores[id] = Math.min(1, scores[id]);
+            }
+            
+            updateDisplay();
+            updateTotals();
+        }
+        
+        function updateDisplay() {
+            // Update all displays
+            for (let key in scores) {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = scores[key];
+                }
+            }
+            // Disable minus buttons when score is 0 (faded look)
+            document.querySelectorAll('.btn-red-minus, .btn-blue-minus').forEach(function(btn) {
+                const id = btn.getAttribute('data-for');
+                if (id && scores[id] !== undefined) {
+                    btn.disabled = scores[id] <= 0;
+                }
+            });
+        }
+        
+        function updateTotals() {
+            // Calculate and display total scores in autonomous section
+            const redTotal = (scores['red-auto'] * 3) + 
+                           (scores['red-high'] * 11) + 
+                           (scores['red-low'] * 7) + 
+                           (scores['red-park'] * 5) + 
+                           (scores['red-parked'] * 13);
+            
+            const blueTotal = (scores['blue-auto'] * 3) + 
+                            (scores['blue-high'] * 11) + 
+                            (scores['blue-low'] * 7) + 
+                            (scores['blue-park'] * 5) + 
+                            (scores['blue-parked'] * 13);
+            
+            document.getElementById('red-auto-display').textContent = redTotal;
+            document.getElementById('blue-auto-display').textContent = blueTotal;
+        }
+        
+        function resetAll() {
+            for (let key in scores) {
+                scores[key] = 0;
+            }
+            updateDisplay();
+            updateTotals();
+        }
+        
+        // Initialize display
+        updateDisplay();
+        updateTotals();
+    </script>
+</body>
+</html>
