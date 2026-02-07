@@ -130,6 +130,9 @@
             font-size: 32px;
             font-weight: bold;
             border: 4px solid;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
         
         .red-label {
@@ -776,8 +779,8 @@
     <div class="autonomous">
         <div class="auto-score-row">
             <span id="red-auto-display">0</span>
-            <div class="auto-label red-label">A</div>
-            <div class="auto-label blue-label">A</div>
+            <div class="auto-label red-label" onclick="addAutoBonus('red')" role="button" title="Click to add 10 autonomous points">A</div>
+            <div class="auto-label blue-label" onclick="addAutoBonus('blue')" role="button" title="Click to add 10 autonomous points">A</div>
             <span id="blue-auto-display">0</span>
         </div>
     </div>
@@ -906,6 +909,8 @@
         const scores = {
             'red-auto': 0,
             'blue-auto': 0,
+            'red-auto-bonus': 0,
+            'blue-auto-bonus': 0,
             'red-high': 0,
             'blue-high': 0,
             'red-low': 0,
@@ -915,6 +920,12 @@
             'red-parked': 0,
             'blue-parked': 0
         };
+        
+        function addAutoBonus(alliance) {
+            const key = alliance + '-auto-bonus';
+            scores[key] = (scores[key] || 0) + 10;
+            updateTotals();
+        }
         
         function change(id, delta) {
             scores[id] = Math.max(0, scores[id] + delta);
@@ -953,12 +964,14 @@
         function updateTotals() {
             // Calculate and display total scores in autonomous section
             const redTotal = (scores['red-auto'] * 3) + 
+                           (scores['red-auto-bonus'] || 0) +
                            (scores['red-high'] * 11) + 
                            (scores['red-low'] * 7) + 
                            (scores['red-park'] * 5) + 
                            (scores['red-parked'] * 13);
             
             const blueTotal = (scores['blue-auto'] * 3) + 
+                            (scores['blue-auto-bonus'] || 0) +
                             (scores['blue-high'] * 11) + 
                             (scores['blue-low'] * 7) + 
                             (scores['blue-park'] * 5) + 
